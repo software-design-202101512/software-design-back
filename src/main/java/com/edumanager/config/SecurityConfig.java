@@ -1,6 +1,6 @@
 package com.edumanager.config;
 
-import com.edumanager.jwt.JwtAuthenticationFilter;
+import com.edumanager.auth.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

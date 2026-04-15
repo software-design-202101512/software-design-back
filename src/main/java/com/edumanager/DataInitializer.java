@@ -1,7 +1,11 @@
 package com.edumanager;
 
-import com.edumanager.entity.*;
-import com.edumanager.repository.*;
+import com.edumanager.grade.*;
+import com.edumanager.record.*;
+import com.edumanager.student.*;
+import com.edumanager.subject.*;
+import com.edumanager.teacher.*;
+import com.edumanager.user.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
