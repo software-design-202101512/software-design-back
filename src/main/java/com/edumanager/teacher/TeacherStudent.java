@@ -7,8 +7,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "teacher_students",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"teacher_id", "student_id", "is_homeroom", "subject_id"}))
+@Table(name = "teacher_student_mappings",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"teacher_profile_id", "student_profile_id", "is_homeroom", "subject_id"}))
 @Getter
 @Builder
 @NoArgsConstructor
@@ -20,11 +20,11 @@ public class TeacherStudent {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teacher_id")
-    private User teacher;
+    @JoinColumn(name = "teacher_profile_id")
+    private TeacherProfile teacherProfile;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_profile_id")
     private Student student;
 
     @Column(name = "is_homeroom", nullable = false, columnDefinition = "TINYINT(1) DEFAULT 0")

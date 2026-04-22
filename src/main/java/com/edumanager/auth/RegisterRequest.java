@@ -29,8 +29,12 @@ public record RegisterRequest(
         // STUDENT
         String classNum,
         String studentNum,
+        String gender,
 
-        // PARENT
+        // PARENT / Profile Info
+        String invitationCode,
+        String phoneNumber,
+        String relationship,
         String childName
 ) {
 }

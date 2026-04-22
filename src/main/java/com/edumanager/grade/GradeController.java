@@ -40,6 +40,29 @@ public class GradeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(gradeService.createGrade(teacherId, request));
     }
 
+    @PutMapping("/{gradeId}")
+    public ResponseEntity<GradeResponse> updateGrade(
+            @PathVariable Long gradeId,
+            @Valid @RequestBody GradeRequest request) {
+        String role = getCurrentUserRole();
+        if (!"TEACHER".equals(role)) {
+            throw new UnauthorizedException("교사만 성적을 수정할 수 있습니다.");
+        }
+        Long teacherId = getCurrentUserId();
+        return ResponseEntity.ok(gradeService.updateGrade(gradeId, teacherId, request));
+    }
+
+    @DeleteMapping("/{gradeId}")
+    public ResponseEntity<Void> deleteGrade(@PathVariable Long gradeId) {
+        String role = getCurrentUserRole();
+        if (!"TEACHER".equals(role)) {
+            throw new UnauthorizedException("교사만 성적을 삭제할 수 있습니다.");
+        }
+        Long teacherId = getCurrentUserId();
+        gradeService.deleteGrade(gradeId, teacherId);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/student/{studentId}")
     public ResponseEntity<List<GradeResponse>> getGradesByStudent(@PathVariable Long studentId) {
         Long requesterId = getCurrentUserId();

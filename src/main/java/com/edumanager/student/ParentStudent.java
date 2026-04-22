@@ -1,11 +1,12 @@
 package com.edumanager.student;
 
+import com.edumanager.parent.ParentProfile;
 import com.edumanager.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "parent_students")
+@Table(name = "parent_student_mappings")
 @Getter
 @Builder
 @NoArgsConstructor
@@ -17,11 +18,11 @@ public class ParentStudent {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
-    private User parent;
+    @JoinColumn(name = "parent_profile_id")
+    private ParentProfile parentProfile;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_profile_id")
     private Student student;
 
     private String relationship;

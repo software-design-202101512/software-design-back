@@ -10,5 +10,6 @@ public record StudentGradeSummary(
         int semester,
         List<GradeResponse> grades,
         BigDecimal averageScore,
-        BigDecimal totalScore
+        BigDecimal totalScore,
+        String overallRank  // 평균 점수 기반 종합 9등급
 ) {}

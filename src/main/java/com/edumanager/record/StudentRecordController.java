@@ -47,11 +47,35 @@ public class StudentRecordController {
         return ResponseEntity.ok(recordService.getRecordsByStudent(studentId, requesterId, role));
     }
 
+    @PutMapping("/{recordId}")
+    public ResponseEntity<StudentRecordResponse> updateRecord(
+            @PathVariable Long recordId,
+            @Valid @RequestBody StudentRecordRequest request) {
+        String role = getCurrentUserRole();
+        if (!"TEACHER".equals(role)) {
+            throw new UnauthorizedException("교사만 학생부를 수정할 수 있습니다.");
+        }
+        Long teacherId = getCurrentUserId();
+        return ResponseEntity.ok(recordService.updateRecord(recordId, teacherId, request));
+    }
+
     @PatchMapping("/{recordId}/visibility")
-    public ResponseEntity<StudentRecordResponse> updateVisibility(
+    public ResponseEntity<Void> updateVisibility(
             @PathVariable Long recordId,
             @RequestParam boolean visible) {
+        String role = getCurrentUserRole();
+        if (!"TEACHER".equals(role)) {
+            throw new UnauthorizedException("교사만 공개 여부를 변경할 수 있습니다.");
+        }
         Long teacherId = getCurrentUserId();
-        return ResponseEntity.ok(recordService.updateVisibility(recordId, teacherId, visible));
+        recordService.updateVisibility(recordId, teacherId, visible);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{recordId}")
+    public ResponseEntity<Void> deleteRecord(@PathVariable Long recordId) {
+        Long teacherId = getCurrentUserId();
+        recordService.deleteRecord(recordId, teacherId);
+        return ResponseEntity.noContent().build();
     }
 }

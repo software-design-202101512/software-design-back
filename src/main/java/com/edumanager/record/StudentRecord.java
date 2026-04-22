@@ -2,6 +2,7 @@ package com.edumanager.record;
 
 import com.edumanager.student.Student;
 import com.edumanager.subject.Subject;
+import com.edumanager.teacher.TeacherProfile;
 import com.edumanager.user.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,8 +26,8 @@ public class StudentRecord {
     private Student student;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "teacher_id")
-    private User teacher;
+    @JoinColumn(name = "teacher_profile_id")
+    private TeacherProfile teacherProfile;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subject_id", nullable = true)
@@ -53,6 +54,11 @@ public class StudentRecord {
 
     @PreUpdate
     protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void updateContent(String content) {
+        this.content = content;
         this.updatedAt = LocalDateTime.now();
     }
 

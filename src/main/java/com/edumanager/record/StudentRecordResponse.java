@@ -9,7 +9,7 @@ public record StudentRecordResponse(
         String teacherName,
         Long subjectId,
         String subjectName,
-        RecordCategory category,
+        String category,
         String content,
         boolean isVisibleToStudent,
         LocalDateTime createdAt

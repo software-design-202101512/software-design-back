@@ -7,7 +7,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "students")
+@Table(name = "student_profiles")
 @Getter
 @Builder
 @NoArgsConstructor
@@ -19,7 +19,7 @@ public class Student {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     private String grade;
@@ -27,6 +27,11 @@ public class Student {
     private String classNum;
 
     private String studentNum;
+
+    private String gender;
+
+    @Column(unique = true)
+    private String invitationCode;
 
     private LocalDateTime createdAt;
 

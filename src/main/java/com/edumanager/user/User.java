@@ -30,16 +30,9 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
-    // TEACHER
-    private String subject;
-    private String grade;
-
-    // STUDENT
-    private String classNum;
-    private String studentNum;
-
-    // PARENT
-    private String childName;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserStatus status;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -53,5 +46,9 @@ public class User {
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public void updateStatus(UserStatus status) {
+        this.status = status;
     }
 }
